@@ -19,31 +19,52 @@
 
 """coffeetools
 
+Provides a Pythonic interface to the coffee binary.
+
 .. moduleauthor:: Stefan Zimmermann <zimmermann.code@gmail.com>
 """
 __all__ = ['CoffeeError', 'Coffee', 'coffee']
 
 from subprocess import Popen, PIPE
 
+
 class CoffeeError(Exception):
     pass
 
+
 class Coffee(object):
+    """Python interface to the coffee binary.
+
+    - Evaluate CoffeeScript code by calling an instance
+      or `.compile()` to JavaScript.
+    """
     def __call__(self, script, require=None, options=[]):
+        """Evaluate a Coffee `script` string.
+
+        - Optionally `require` a JavaScript library.
+        - Optionally specify additional command line `options`
+          as parameter list.
+        """
         cmd = ['coffee', '-s']
         if require:
             cmd += ['-r', str(require)]
         cmd.extend(options)
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output = p.communicate(script)
-        if output[1]:
+        if output[1]: # stderr
             raise CoffeeError(output[1])
         return output[0]
 
     def compile(self, script, bare=False):
+        """Compile Coffee `script` string to JavaScript.
+
+        - `bare` compiles without top-level function.
+        """
         options = ['-c']
         if bare:
             options.append('-b')
         return self(script, options=options)
 
+
+# Preinstantiated CoffeeScript interface.
 coffee = Coffee()

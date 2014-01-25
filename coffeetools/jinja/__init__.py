@@ -31,7 +31,10 @@ from jinjatools.ext import TagExtension
 
 from coffeetools import coffee
 
+
 class CoffeeExtension(TagExtension):
+    """The {% coffee ... %} tag.
+    """
     def __init__(self, environment):
         TagExtension.__init__(self, environment)
         environment.extend(
@@ -39,11 +42,23 @@ class CoffeeExtension(TagExtension):
           )
 
     def tag_coffee(self, caller):
+        """{% coffee %} script {% endcoffee %}
+
+        - Evaluates script and returns output.
+        """
         return coffee(caller())
 
     def tag_coffee_compile(self, caller):
+        """{% coffee compile %} script {% endcoffee %}
+
+        - Compiles script with top-level function and returns JavaScript.
+        """
         return coffee.compile(
           caller(), bare=self.environment.coffee_compile_bare)
 
     def tag_coffee_compile_bare(self, caller):
+        """{% coffee compile bare %} script {% endcoffee %}
+
+        - Compiles script without top-level function and returns JavaScript.
+        """
         return coffee.compile(caller(), bare=True)

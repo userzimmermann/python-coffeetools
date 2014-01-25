@@ -29,12 +29,18 @@ setup(
 
   classifiers=[
     'Development Status :: 3 - Alpha',
-    'License :: OSI Approved :: GNU General Public License (GPL)',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved ::'
+    ' GNU Library or Lesser General Public License (LGPL)',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Topic :: Software Development',
+    'Topic :: Utilities',
     ],
   keywords=[
     'coffee', 'tools', 'script', 'coffeescript', 'javascript',
     'jinja', 'jinja2', 'jinjatools', 'template', 'tag', 'extension',
+    'python3',
     ],
   )

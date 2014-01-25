@@ -35,7 +35,7 @@ class CoffeeError(Exception):
 class Coffee(object):
     """Python interface to the coffee binary.
 
-    - Evaluate CoffeeScript code by calling an instance
+    - Evaluate CoffeeScript code by calling a :class:`Coffee` instance
       or `.compile()` to JavaScript.
     """
     def __call__(self, script, require=None, options=[]):

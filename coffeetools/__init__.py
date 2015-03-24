@@ -68,3 +68,9 @@ class Coffee(object):
 
 # Preinstantiated CoffeeScript interface.
 coffee = Coffee()
+
+
+def load_ipython_extension(shell):
+    # import locally to avoid general dependency on IPython
+    from .ipython import coffeescript
+    shell.magics_manager.magics['cell']['coffeescript'] = coffeescript

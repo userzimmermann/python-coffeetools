@@ -33,22 +33,20 @@ class CoffeeError(Exception):
 
 
 class Coffee(object):
-    """Python interface to the coffee binary.
+    """Python interface to the ``coffee`` binary.
 
     - Evaluate CoffeeScript code by calling a :class:`Coffee` instance
       or `.compile()` to JavaScript.
     """
-    def __call__(self, script, require=None, options=[]):
-        """Evaluate a Coffee `script` string.
+    def __call__(self, script, options=[]):
+        """Evaluates a Coffee `script` string via ``coffee -s``
+           and returns its output.
 
-        - Optionally `require` a JavaScript library.
-        - Optionally specify additional command line `options`
-          as parameter list.
+        - You can specify additional command line `options`
+          as list of argument strings.
         """
         cmd = ['coffee', '-s']
-        if require:
-            cmd += ['-r', str(require)]
-        cmd.extend(options)
+        cmd += options
         p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
         output = p.communicate(script)
         if output[1]: # stderr
@@ -56,9 +54,9 @@ class Coffee(object):
         return output[0]
 
     def compile(self, script, bare=False):
-        """Compile Coffee `script` string to JavaScript.
+        """Compile Coffee `script` string to JavaScript via ``coffee -c``
 
-        - `bare` compiles without top-level function.
+        - `bare` compiles without top-level function (adding ``-b`` flag)
         """
         options = ['-c']
         if bare:
@@ -71,6 +69,8 @@ coffee = Coffee()
 
 
 def load_ipython_extension(shell):
+    """Called on ``%load_ext coffeetools``
+    """
     # import locally to avoid general dependency on IPython
     from .ipython import coffeescript
     shell.magics_manager.magics['cell']['coffeescript'] = coffeescript

@@ -63,6 +63,13 @@ class Coffee(object):
             options.append('-b')
         return self(script, options=options)
 
+    @property
+    def version(self):
+        """Get the version number string via ``coffee -v``
+        """
+        output = self('', options=['-v'])
+        return output.rsplit(None, 1)[-1]
+
 
 # Preinstantiated CoffeeScript interface.
 coffee = Coffee()

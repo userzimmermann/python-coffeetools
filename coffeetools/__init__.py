@@ -25,6 +25,7 @@ Provides a Pythonic interface to the coffee binary.
 """
 __all__ = ['CoffeeError', 'Coffee', 'coffee']
 
+import sys
 from subprocess import Popen, PIPE
 
 __version__ = '0.1.0'
@@ -40,6 +41,17 @@ class Coffee(object):
     - Evaluate CoffeeScript code by calling a :class:`Coffee` instance
       or `.compile()` to JavaScript.
     """
+    cmd = 'coffee'
+    if sys.platform.startswith('win'):
+        cmd += '.cmd'
+
+    def __init__(self, cmd=None):
+        """Initialize with an optional explicit coffee `cmd` to use
+           (which may also be a full path).
+        """
+        if cmd:
+            self.cmd = cmd
+
     def __call__(self, script, options=[]):
         """Evaluates a Coffee `script` string via ``coffee -s``
            and returns its output.
@@ -47,9 +59,10 @@ class Coffee(object):
         - You can specify additional command line `options`
           as list of argument strings.
         """
-        cmd = ['coffee', '-s']
+        cmd = [self.cmd, '-s']
         cmd += options
-        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE,
+                  universal_newlines=True)
         output = p.communicate(script)
         if output[1]: # stderr
             raise CoffeeError(output[1])

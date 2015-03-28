@@ -1,17 +1,20 @@
+import sys
+import os
+
 try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
 
+ROOT = os.path.dirname(os.path.realpath(__file__))
+sys.path.insert(0, ROOT)
 
-VERSION = open('VERSION').read().strip()
-
-REQUIRES = open('requirements.txt').read().strip().split('\n')
+import coffeetools
 
 
 setup(
   name='coffeetools',
-  version=VERSION,
+  version=coffeetools.__version__,
   description=(
     'Tools for using CoffeeScript with Python.'
     ),
@@ -21,7 +24,10 @@ setup(
 
   license='LGPLv3',
 
-  install_requires=REQUIRES,
+  extras_require={
+    extra: open(os.path.join(ROOT, 'requirements.%s.txt' % extra)).read()
+    for extra in ['jinja', 'ipython']},
+
   packages=[
     'coffeetools',
     'coffeetools.jinja',

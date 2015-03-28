@@ -27,6 +27,8 @@ __all__ = ['CoffeeError', 'Coffee', 'coffee']
 
 from subprocess import Popen, PIPE
 
+__version__ = '0.1.dev0'
+
 
 class CoffeeError(Exception):
     pass

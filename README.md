@@ -39,11 +39,11 @@ They have the following requirements:
 
 * `[jinja]`
 
-  * [`jinjatools >= 0.1.4`](https://pypi.python.org/pypi/jinjatools)
+    * [`jinjatools >= 0.1.4`](https://pypi.python.org/pypi/jinjatools)
 
 * `[ipython]`
 
-  * [`ipython[notebook]`](https://pypi.python.org/pypi/jinjatools)
+    * [`ipython[notebook]`](https://pypi.python.org/pypi/ipython)
 
 To install all extra dependencies:
 

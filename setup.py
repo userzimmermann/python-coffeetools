@@ -25,6 +25,7 @@ setup(
   packages=[
     'coffeetools',
     'coffeetools.jinja',
+    'coffeetools.ipython',
     ],
 
   classifiers=[

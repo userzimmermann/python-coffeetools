@@ -12,6 +12,12 @@ sys.path.insert(0, ROOT)
 import coffeetools
 
 
+EXTRAS = {
+  extra: open(os.path.join(ROOT, 'requirements.%s.txt' % extra)).read()
+  for extra in ['jinja', 'ipython']}
+EXTRAS['all'] = '\n'.join(EXTRAS.values())
+
+
 setup(
   name='coffeetools',
   version=coffeetools.__version__,
@@ -24,9 +30,7 @@ setup(
 
   license='LGPLv3',
 
-  extras_require={
-    extra: open(os.path.join(ROOT, 'requirements.%s.txt' % extra)).read()
-    for extra in ['jinja', 'ipython']},
+  extras_require=EXTRAS,
 
   packages=[
     'coffeetools',

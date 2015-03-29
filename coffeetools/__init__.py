@@ -36,7 +36,7 @@ class CoffeeError(Exception):
 
 
 class Coffee(object):
-    """Python interface to the ``coffee`` binary.
+    """Python interface to the CoffeeScript compiler.
 
     - Evaluate CoffeeScript code by calling a :class:`Coffee` instance
       or `.compile()` to JavaScript.
@@ -61,8 +61,13 @@ class Coffee(object):
         """
         cmd = [self.cmd, '-s']
         cmd += options
-        p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE,
-                  universal_newlines=True)
+        try:
+            p = Popen(cmd, stdin=PIPE, stdout=PIPE, stderr=PIPE,
+                      universal_newlines=True)
+        except (OSError, IOError) as e:
+            raise RuntimeError(
+              "%s\ncan't execute CofeeScript compiler with: %s\n(%s: %s)"
+              % (repr(self), " ".join(cmd), type(e).__name__, e))
         output = p.communicate(script)
         if output[1]: # stderr
             raise CoffeeError(output[1])

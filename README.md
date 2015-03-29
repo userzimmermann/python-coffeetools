@@ -3,12 +3,12 @@ CoffeeScript from Python
 
 [https://bitbucket.org/userzimmermann/python-coffeetools]()
 
-* A [`coffee`][1] interface for evaluating and compiling
+* [`coffee`][1] interface for evaluating and compiling
   [CoffeeScript](http://coffeescript.org/)
 
-* A [`{% coffee ... %}`][2] template tag for [Jinja2](http://jinja.pocoo.org)
+* [`{% coffee ... %}`][2] template tags for [Jinja2](http://jinja.pocoo.org)
 
-* A [`%%coffeescript`][2] magic function for [IPython Notebook](
+* [`%%coffeescript`][3] magic function for [IPython Notebook](
     http://ipython.org/notebook.html)
 
 
@@ -17,16 +17,17 @@ CoffeeScript from Python
 
 Supported Python versions: __2.7__ and __3.3+__
 
-You need an installed `coffee` binary in your `PATH`.
-You can find installation instructions and further information at:
-
-[http://coffeescript.org/]()
-
-The easiest way is to use the [node package manager](https://www.npmjs.com/):
+You need an installed CoffeeScript compiler.
+By default __coffeetools__ look for a `coffee` executable in your `PATH`,
+or `coffee.cmd` on Windows.
+You can find installation instructions and further information at
+[http://coffeescript.org/]().
+The easiest way is to use the
+[node package manager](https://www.npmjs.com/):
 
     npm install coffee-script
 
-To install __coffeetools__ just use [pip](http://www.pip-installer.org)
+To install __coffeetools__, just use [pip](http://www.pip-installer.org)
 to get the latest [release](https://pypi.python.org/pypi/coffeetools)
 from [PyPI](https://pypi.python.org):
 
@@ -35,7 +36,7 @@ from [PyPI](https://pypi.python.org):
 For basic usage there are no dependencies on other Python packages.
 
 __Jinja__ and __IPython__ integration are `[extra]` features.
-They have the following requirements:
+They require the following Python packages:
 
 * `[jinja]`
 
@@ -45,7 +46,7 @@ They have the following requirements:
 
     * [`ipython[notebook]`](https://pypi.python.org/pypi/ipython)
 
-To install all extra dependencies:
+All extra Python requirements can also be installed with:
 
     pip install coffeetools[all]
 
@@ -67,6 +68,18 @@ Compile CoffeeScript to JavaScript:
 Compile CoffeeScript to JavaScript without a top-level `function()`:
 
     coffee.compile('Some CoffeeScript', bare=True)
+
+If you want to specify a custom name
+of your CoffeeScript compiler executable or its absolute or relative path,
+just create a custom interface instance:
+
+    from coffeetools import Coffee
+
+    coffee = Coffee('executable')
+    #OR
+    coffee = Coffee('/absolute/path/to/executable')
+    #OR
+    coffee = Coffee('relative/path/to/executable')
 
 
 2. Using CoffeeScript from Jinja2

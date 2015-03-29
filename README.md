@@ -13,7 +13,7 @@ CoffeeScript from Python
 
 
 0. Setup
----------------
+--------
 
 Supported Python versions: __2.7__ and __3.3+__
 

@@ -66,8 +66,9 @@ class Coffee(object):
                       universal_newlines=True)
         except (OSError, IOError) as e:
             raise RuntimeError(
-              "%s\ncan't execute CofeeScript compiler with: %s\n(%s: %s)"
-              % (repr(self), " ".join(cmd), type(e).__name__, e))
+              "Can't execute CofeeScript compiler with: %s\n"
+              "Is CoffeeScript installed? http://coffeescript.org"
+              % " ".join(cmd))
         output = p.communicate(script)
         if output[1]: # stderr
             raise CoffeeError(output[1])

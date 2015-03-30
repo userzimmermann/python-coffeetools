@@ -91,7 +91,7 @@ More information coming soon...
 
 3. Evaluate CoffeeScript in an IPython Notebook
 -----------------------------------------------
-[2]: #markdown-header-3-evaluate-coffeescript-in-an-ipython-notebook
+[3]: #markdown-header-3-evaluate-coffeescript-in-an-ipython-notebook
 
     %load_ext coffeescript
 
